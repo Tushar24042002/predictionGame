@@ -1,0 +1,14 @@
+.headerComponent{
+    position: relative;
+    background-color: lightblue;
+    display: flex;
+    align-items: center;
+    height: 50px;
+    padding: 0 15px;
+}
+
+.headerComponent .backBtnDiv{
+
+    color: white;
+    height: 100%;
+}

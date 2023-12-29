@@ -1,23 +1,28 @@
-import React, { useState, useEffect } from 'react';
+// Timer component
+import React, { useState, useEffect, useRef } from 'react';
 
-const Timer = () => {
-  const [seconds, setSeconds] = useState(20);
+const Timer = ({ setCalculateResult, timerActive }) => {
+  const [seconds, setSeconds] = useState(8);
+  const intervalRef = useRef(null);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (seconds > 0) {
-        setSeconds(seconds - 1);
-      } else {
-        handleTimerComplete();
-      }
-    }, 1000);
+    if (timerActive && seconds > 0) {
+      intervalRef.current = setInterval(() => {
+        setSeconds((prevSeconds) => prevSeconds - 1);
+      }, 1000);
+    }
 
-    return () => clearInterval(interval);
-  }, [seconds]);
+    return () => {
+      clearInterval(intervalRef.current);
+    };
+  }, [timerActive, seconds]);
 
-  const handleTimerComplete = () => {
-    setSeconds(20); 
-  };
+  useEffect(() => {
+    if (seconds === 0) {
+      setCalculateResult(true);
+      setSeconds(8);
+    }
+  }, [seconds, setCalculateResult]);
 
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
@@ -25,9 +30,7 @@ const Timer = () => {
     return `${minutes < 10 ? '0' : ''}${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
   };
 
-  return (
-      formatTime(seconds)
-  );
+  return <>{formatTime(seconds)}</>;
 };
 
 export default Timer;

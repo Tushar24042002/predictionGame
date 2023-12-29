@@ -1,0 +1,7 @@
+.homeSection{
+    position: relative;
+}
+.homeSection #id_time{
+    position: relative;
+    padding: 10px;
+}
