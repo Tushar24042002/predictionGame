@@ -1,16 +1,16 @@
 // apiActions.js
 import axios from 'axios';
 
-const insertData = async (colorCode) => {
-  const phpPageUrl = 'http://localhost:8000/game.php';
+const insertData = async (totalMoney,userId, colorCode, currentTimestamp) => {
+  const phpPageUrl = 'https://game.capitallooks.com/php/game.php';
 
   const dataToInsert = new URLSearchParams({
     colorCode: colorCode,
-    userId: 'user123',
-    amount: 200,
-    gameSerial: '456',
-    timeInterval: '10:00 AM - 12:00 PM'
-  });
+    userId: userId,
+    amount: totalMoney,
+    gameSerial : `${userId}_${currentTimestamp}`,
+    timeInterval: currentTimestamp
+  }); 
 
   try {
     const response = await axios.post(phpPageUrl, dataToInsert);

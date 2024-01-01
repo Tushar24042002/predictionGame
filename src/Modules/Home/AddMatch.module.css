@@ -1,0 +1,78 @@
+.addAmountModal{
+    width: 80vw;
+    background-color: white;
+    box-shadow:  0px 0px 4px 2px lightgrey;
+    padding-bottom: 0.5rem;
+}
+.addAmountModal .headerPart{
+    padding: 10px 20px;
+    
+}
+.addAmountModal .headerPart h5{
+    margin-bottom: 0;
+    color: white;
+}
+
+.addAmountModal .bodyPart{
+    padding: 10px 20px;
+    position: relative;
+}
+.addAmountModal .bodyPart.amountSec label{
+font-size: 14px;
+margin-bottom: 3px;
+}
+.activeAmount{
+    background-color: rgb(180, 180, 180);
+}
+
+.addAmountModal label{
+    margin-bottom: 2px;
+}
+
+/* body */
+.addAmountModal .bodyPart ul{
+    box-shadow: 0px 0px 4px 1px lightgrey;
+    display: flex ;
+    width: fit-content;
+    padding-left: 0 !important;
+     align-items: center;
+}
+.addAmountModal .bodyPart ul li{
+    width: fit-content;
+    list-style: none !important;
+    cursor: pointer;
+    padding: 6px 15px;
+    text-align: center;
+ 
+}
+.addAmountModal .bodyPart .quantitySec{
+    position: relative;
+}
+
+ .gap_20{
+    gap: 20px;
+}
+
+.addAmountModal .bodyPart .viewQuantity{
+    min-width: 50px;
+    text-align: center;
+    font-size: 18px;
+}
+.addAmountModal .bodyPart .quantityBtn{
+    color: white;
+    min-width: 50px;
+    width: 30px;
+    background: #0064ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    /* top: 0px; */
+    font-size: 22px;
+    border-radius: 4px;
+}
+
+.addAmountModal .bodyPart .total{
+    margin-top: 16px;
+}

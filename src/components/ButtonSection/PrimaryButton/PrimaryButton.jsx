@@ -1,9 +1,10 @@
 import React from 'react'
 import Classes from "./PrimaryButton.module.css";
 
-const PrimaryButton = ({onClick, style, label}) => {
+const PrimaryButton = ({onClick, style, label, disabled}) => {
+  console.log(disabled)
   return (
-    <div className={` ${Classes.primaryButton}` } style={style}>{label}</div>
+    <button disabled={disabled} className={` ${Classes.primaryButton}` } style={style} onClick={onClick}>{label}</button>
   )
 }
 

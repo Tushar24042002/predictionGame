@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 header('Access-Control-Allow-Origin: http://localhost:3000');
 header('Content-Type: application/json');
+header('Access-Control-Allow-Credentials: true'); 
 include 'config.php';
 
 $response = [];
@@ -32,16 +33,35 @@ try {
         $gameSerial = $_POST['gameSerial'];
         $timeInterval = $_POST['timeInterval'];
 
-        // Assuming 'name' is a parameter in your SQL query
-        $stmt = $conn->prepare("INSERT INTO game (colorCode, userId, amount, gameSerial, timeInterval) VALUES (?, ?, ?, ?, ?)");
+        // Check if user balance is sufficient
+        $stmtBalance = $conn->prepare("SELECT balance FROM users WHERE userId = ?");
+        $stmtBalance->bind_param('i', $userId);
+        $stmtBalance->execute();
+        $stmtBalance->bind_result($userBalance);
+        $stmtBalance->fetch();
 
-        // Bind parameters
-        $stmt->bind_param('isiss', $colorCode, $userId, $amount, $gameSerial, $timeInterval);
+        if ($userBalance >= $amount) {
+            // Deduct amount from user's balance
+            $newBalance = $userBalance - $amount;
+            $stmtUpdateBalance = $conn->prepare("UPDATE users SET balance = ? WHERE userId = ?");
+            $stmtUpdateBalance->bind_param('ii', $newBalance, $userId);
+            $stmtUpdateBalance->execute();
 
-        $stmt->execute();
+            // Insert game data
+            $stmtInsertGame = $conn->prepare("INSERT INTO game (colorCode, userId, amount, gameSerial, timeInterval) VALUES (?, ?, ?, ?, ?)");
+            $stmtInsertGame->bind_param('isiss', $colorCode, $userId, $amount, $gameSerial, $timeInterval);
+            $stmtInsertGame->execute();
 
-        $response['success'] = true;
-        $response['message'] = "Data inserted successfully";
+            $response['success'] = true;
+            $response['message'] = "Data inserted successfully";
+        } else {
+            $response['success'] = false;
+            $response['message'] = "Insufficient balance";
+        }
+
+        $stmtBalance->close();
+        $stmtUpdateBalance->close();
+        $stmtInsertGame->close();
     } else {
         $response['success'] = false;
         $response['message'] = "Missing required parameters in the POST request";

@@ -1,9 +1,12 @@
 <?php
+
+
     $db_host = "localhost";
     $db_username = "vhfaxmrm_tushar";
     $db_password = "Tushar@2002";
     $db_name = "vhfaxmrm_tushar";
 
+    
 
     $conn = mysqli_connect("localhost", "root", "", "game");
 

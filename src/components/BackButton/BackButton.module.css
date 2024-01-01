@@ -2,8 +2,18 @@
     background-color: transparent;
     color: black;
     cursor: pointer;
-   height: 100%;
+   height: 70%;
+   aspect-ratio: 1;
    display: flex;
    align-items: center;
    justify-content: center;
+   border-radius: 50%;
+}
+.backButtonCss svg{
+    width: 24px;
+    height: 24px;
+
+}
+.backButtonCss:is(:hover){
+    background-color: orange;
 }

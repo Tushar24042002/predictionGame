@@ -1,0 +1,54 @@
+.registrationForm{
+    position: relative;
+    padding: 1rem;
+}
+.registrationForm label{
+    position: relative;
+    width: 100%;
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+.registrationForm .inputClass{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    appearance: none;
+    background-clip: padding-box;
+    border: 0 !important;
+    box-shadow: 0px 0px 6px -1px grey !important;
+    border-radius: 0 !important;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    background: white;
+    height: 2.6rem;
+    
+}
+.registrationForm .inputClass span{
+    height: auto;
+    width: 1.25rem;
+    position: relative;
+    top: -2px;
+}
+ .registrationForm .inputClass span svg{
+    height: 80% ;
+    margin-top: 10%;
+    width: 100%;
+    margin: auto;
+ }
+.registrationForm .inputClass input{
+    width: 100% ;
+    border: 0 !important;
+    outline: none !important;
+    height: 100%;
+}
+.disabledDiv{
+    cursor: not-allowed !important;
+    background-color:rgba(239, 239, 239, 0.3) !important;
+}
+input:disabled{
+    cursor: not-allowed;
+}

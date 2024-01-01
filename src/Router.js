@@ -1,19 +1,68 @@
-import React from 'react';
-import { BrowserRouter ,  Routes, Route } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import Home from './Modules/Home/Home';
 import Recharge from './Modules/Recharge/Recharge';
-import HeaderComponent from './components/Header/HeaderComponent';
+import LoginForm from './Modules/login/LoginForm';
+import RegistrationForm from './Modules/Registration/RegistrationForm';
+import WalletPayment from './Modules/WalletAmount/WalletPayment';
+import axios from 'axios';
+import { GameProvider } from './GameContext';
+
+// Custom hook to check authentication status
+const useAuthentication = () => {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const checkAuthentication = async () => {
+      try {
+        const response = await axios.get('https://game.capitallooks.com/php/check_auth.php');
+        setLoggedIn(response?.data?.loggedIn || false);
+      } catch (error) {
+        setLoggedIn(false);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkAuthentication();
+  }, []);
+
+  return { loggedIn, loading };
+};
 
 const Router = () => {
-  return (
-   <BrowserRouter>
-   {/* <HeaderComponent/> */}
-    <Routes>
-        <Route path='/' element={<Home/>} />
-        <Route path='/recharge' element={<Recharge/>} />
-    </Routes>
-   </BrowserRouter>
-  )
-}
+  const { loggedIn, loading } = useAuthentication();
+  // const navigate = useNavigate();
 
-export default Router
+  const normalPages = [
+    { path: '/', element: <Home /> },
+    { path: '/dashboard', element: <Home /> },
+    { path: '/rechargeWallet', element: <WalletPayment /> },
+    { path: '/recharge', element: <Recharge /> },
+  ];
+
+  return (
+    <BrowserRouter>
+      <GameProvider>
+        {loading ? (
+          // Show a loading state while checking authentication
+          <div>Loading...</div>
+        ) : (
+          <Routes>
+            {normalPages.map((data, index) =>
+              loggedIn ? (
+                <Route key={index} path={data.path} element={data.element} />
+              ) : null
+            )}
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/register" element={<RegistrationForm />} />
+            {!loggedIn && <Route path="/*" element={<Navigate to="/login" />} />}
+          </Routes>
+        )}
+      </GameProvider>
+    </BrowserRouter>
+  );
+};
+
+export default Router;

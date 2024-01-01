@@ -1,0 +1,62 @@
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.821);
+    border-radius: inherit;
+    overflow-y: hidden;
+  }
+  
+  .modal {
+    padding: 1.2rem;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: max-content;
+    /* max-height: 90%; */
+    height: max-content;
+    z-index: 100;
+    transform: translate(-50%, -50%);
+    background-color: var(--app-white);
+    border-radius: 0.4rem;
+  }
+  
+  /* scroller  css */
+  .modal::-webkit-scrollbar {
+    width: 0.2rem;
+    border-radius: 1rem;
+  }
+  
+  .modal::-webkit-scrollbar-track {
+    background: var(--light-grey);
+  }
+  
+  .modal::-webkit-scrollbar-thumb {
+    background: var(--app-input-border);
+  }
+  
+  .header {
+    position: relative;
+  }
+  
+  .closeBtn {
+    line-height: 1rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+  }
+  
+  .title {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .title > h2 {
+    font-size: 1.5rem;
+    font-family: Medium;
+  }
+  
