@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const userInfo = async (id) => {
-  const phpPageUrl = `https://game.capitallooks.com/php/userInfo.php`;
+  const phpPageUrl = `http://localhost:8000/userInfo.php`;
   try {
     const response = await axios.get(phpPageUrl);
     console.log(response)

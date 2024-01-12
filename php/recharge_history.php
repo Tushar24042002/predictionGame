@@ -14,10 +14,11 @@ header('Access-Control-Allow-Credentials: true');
 include 'config.php';
 
 // Get user ID from the session (you can use POST, GET, or any other method)
-$userId = $_SESSION['userId']; // Adjust as needed
+// $userId = $_SESSION['userId']; 
+$userId = 12;
 
 // Use prepared statements to prevent SQL injection
-$sql = "SELECT * FROM game WHERE userId = ? ORDER BY id DESC";
+$sql = "SELECT * FROM transactions WHERE user_id = ? ORDER BY id DESC";
 
 // Prepare the statement
 $stmt = $conn->prepare($sql);

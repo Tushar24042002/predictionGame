@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const adduser = async (data) => {
-  const phpPageUrl = 'https://game.capitallooks.com/php/register.php';
+  const phpPageUrl = 'http://localhost:8000/register.php';
 
   const dataToInsert = new URLSearchParams(data);
 

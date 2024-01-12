@@ -7,6 +7,7 @@ import RegistrationForm from './Modules/Registration/RegistrationForm';
 import WalletPayment from './Modules/WalletAmount/WalletPayment';
 import axios from 'axios';
 import { GameProvider } from './GameContext';
+import RechargeHistory from './Modules/WalletAmount/RechargeHistory';
 
 // Custom hook to check authentication status
 const useAuthentication = () => {
@@ -16,7 +17,7 @@ const useAuthentication = () => {
   useEffect(() => {
     const checkAuthentication = async () => {
       try {
-        const response = await axios.get('https://game.capitallooks.com/php/check_auth.php');
+        const response = await axios.get('http://localhost:8000/check_auth.php');
         setLoggedIn(response?.data?.loggedIn || false);
       } catch (error) {
         setLoggedIn(false);
@@ -40,6 +41,7 @@ const Router = () => {
     { path: '/dashboard', element: <Home /> },
     { path: '/rechargeWallet', element: <WalletPayment /> },
     { path: '/recharge', element: <Recharge /> },
+    {path : '/rechargeHistory', element:<RechargeHistory/>}
   ];
 
   return (
@@ -47,7 +49,7 @@ const Router = () => {
       <GameProvider>
         {loading ? (
           // Show a loading state while checking authentication
-          <div>Loading...</div>
+          <div className='d-flex align-items-center justify-content-center' style={{"height" :"100vh"}}>Loading...</div>
         ) : (
           <Routes>
             {normalPages.map((data, index) =>

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import Timer from "../../components/Timer/Timer";
 import GameButtons from "../../components/GameButtons/GameButtons";
 import RandomColorSelector from "../../components/RandomColorSelector/RandomColorSelector";
 import HomeBalance from "../../components/HomeBalance/HomeBalance";
@@ -24,10 +23,12 @@ const Home = () => {
   const [total, setTotal] = useState(0);
   const [shareModal, setShareModal] = useState(false);
   const [gameRecord, setGameRecord] = useState([]);
+  const [resultRecord , setResultRecord] = useState([]);
 
   useEffect(() => {
     callUserInfo();
     fetchRecord();
+    fetchResultRecord();
   }, []);
   const callUserInfo = () => {
     userInfo()
@@ -58,6 +59,7 @@ const Home = () => {
         if (res?.success) {
           callUserInfo();
           fetchRecord();
+          fetchResultRecord();
           setIsModalOpen(false);
         }
       })
@@ -68,7 +70,7 @@ const Home = () => {
 
   const fetchAndUpdateGameEntries = async () => {
     try {
-      const response = await fetch("https://game.capitallooks.com/php/update_result.php", {
+      const response = await fetch("http://localhost:8000/update_result.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -86,12 +88,27 @@ const Home = () => {
 
   //  user result
   const fetchRecord = () => {
-    fetch('https://game.capitallooks.com/php/user_result.php')
+    fetch('http://localhost:8000/user_result.php')
   .then(response => response.json())
   .then(data => {
     console.log(data); // Log the data to the console
     // Handle the data as needed
     setGameRecord(data);
+  })
+  .catch(error => {
+    console.error('Error fetching data:', error);
+    // Handle errors
+  });
+
+  };
+
+
+   //  user result
+   const fetchResultRecord = () => {
+    fetch('http://localhost:8000/result.php')
+  .then(response => response.json())
+  .then(data => {
+    setResultRecord(data);
   })
   .catch(error => {
     console.error('Error fetching data:', error);
@@ -119,8 +136,21 @@ const Home = () => {
     { Header: 'Amount', accessor: 'amount' },
     { Header: 'Result', accessor: 'result' },
   ];
+
+  const resultColumn = [
+    {
+Header :"S. no", accessor :"id"
+    },
+    {
+      Header :"Date" ,accessor :"created_at"
+    },
+    {
+      Header :"Result", accessor : "colorCode",
+    }
+  ]
   return (
     <>
+
       {shareModal && (
         <Share
           closeModal={setShareModal}
@@ -177,6 +207,11 @@ const Home = () => {
       />
 
       <div className="container-fluid">
+      <div className="row mb-4">
+          <div className="col-lg-12">
+          <PaginatedTable data={resultRecord} columns={resultColumn} />
+          </div>
+        </div>
         <div className="row">
           <div className="col-lg-12">
           <PaginatedTable data={gameRecord} columns={columns} />

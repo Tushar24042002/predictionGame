@@ -13,22 +13,13 @@ header('Content-Type: application/json');
 header('Access-Control-Allow-Credentials: true');
 include 'config.php';
 
-// Get user ID from the session (you can use POST, GET, or any other method)
-$userId = $_SESSION['userId']; // Adjust as needed
-
-// Use prepared statements to prevent SQL injection
-$sql = "SELECT * FROM game WHERE userId = ? ORDER BY id DESC";
+$sql = "SELECT * FROM result  ORDER BY id DESC";
 
 // Prepare the statement
 $stmt = $conn->prepare($sql);
 if ($stmt === false) {
     die('Error in preparing the SQL statement.');
 }
-
-// Bind the parameter
-$stmt->bind_param('i', $userId); // Assuming $userId is an integer, adjust the type ('i' for integer, 's' for string, etc.)
-
-// Execute the statement
 $stmt->execute();
 
 // Get the result set

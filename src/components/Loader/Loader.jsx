@@ -18,7 +18,7 @@ const Loader = ({ target }) => {
   return (
     Boolean(show) && (
       <Modal>
-        <div>Loading</div>
+        <div className="d-flex align-items-center justify-content-center" style={{"height" : "100vh"}}>Loading</div>
      </Modal>
     )
   );

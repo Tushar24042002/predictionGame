@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const loginUser = async (data) => {
-  const phpPageUrl = 'https://game.capitallooks.com/php/login.php';
+  const phpPageUrl = 'http://localhost:8000/login.php';
 
   const dataToInsert = new URLSearchParams(data);
 

@@ -39,7 +39,7 @@ const WalletPayment = () => {
     }
     try {
       // Request to create a Razorpay order
-      const response = await fetch("https://game.capitallooks.com/php/walletpayment.php", {
+      const response = await fetch("http://localhost:8000/walletpayment.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -95,9 +95,11 @@ const WalletPayment = () => {
         <div className="container-fluid">
           <div className="row mb-4 mt-2">
             <div className="col-lg-12">
-              <div className="d-flex align-items-center justify-content-between">
-                <h5 className="mb-0">Available Balance : {userAmount}</h5>
-                <SecondaryButton label={"Recharge History"} />
+              <div className="row">
+                <div className="col-lg-6 col-12 mb-3  text-lg-start text-center text-md-start"> <h5 className="mb-3 mb-md-0 mb-lg-0 ">Available Balance : {userAmount}</h5></div>
+                <div className="col-lg-6 col-12 mb-3 mb-md-0 mb-lg-0 text-end " ><SecondaryButton onClick={()=>navigate("/rechargeHistory")} label={"Recharge History"} /></div>
+               
+                
               </div>
             </div>
           </div>
@@ -119,7 +121,7 @@ const WalletPayment = () => {
             {suggestAmount &&
               suggestAmount?.map((data, index) => {
                 return (
-                  <div className="col-lg-4 mb-3 text-center">
+                  <div className="col-lg-4 col-6 mb-3 text-center">
                     <SecondaryButton
                       style={{ width: "80%" }}
                       label={data}

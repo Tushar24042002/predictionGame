@@ -68,7 +68,8 @@ const RegistrationForm = () => {
     }));
   };
 
-  const handleRegistration = () => {
+  const handleRegistration = (e) => {
+    e.preventDefault();
     adduser(formValues)
       .then((res) => {
         console.log(res);
@@ -94,7 +95,7 @@ const RegistrationForm = () => {
         <div className="container-fluid">
           <div className="row">
             <div className="col-lg-12">
-              <form onSubmit={handleRegistration}>
+              <form>
                 {registrationForm &&
                   registrationForm.map((data, index) => {
                     return (

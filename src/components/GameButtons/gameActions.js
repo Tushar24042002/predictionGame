@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const insertData = async (totalMoney,userId, colorCode, currentTimestamp) => {
-  const phpPageUrl = 'https://game.capitallooks.com/php/game.php';
+  const phpPageUrl = 'http://localhost:8000/game.php';
 
   const dataToInsert = new URLSearchParams({
     colorCode: colorCode,

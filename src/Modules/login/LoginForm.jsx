@@ -18,11 +18,13 @@ const LoginForm = () => {
     e.preventDefault();
 
     loginUser({ mobile: mobile, password: password }).then((res) => {
-      console.log(res);
       if(res?.success){
         console.log("working");
         Alertify.success("Logged In Successfully");
         handleRedirect();
+      }
+      else if(res?.error){
+        Alertify.error(res?.error);
       }
       else{
         Alertify.error("Invalid Credientials");
@@ -33,7 +35,7 @@ const LoginForm = () => {
   };
   const handleRedirect = () => {
     // Redirect to the "/dashboard" route
-    navigate('/');
+    navigate('/dashboard');
   };
   return (
     <>
